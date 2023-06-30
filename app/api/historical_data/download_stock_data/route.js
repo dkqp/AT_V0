@@ -1,4 +1,3 @@
-import { alpaca } from '@/config/alpaca_config';
 import { getBars } from '@/utils/data_handling';
 
 export async function GET(req) {
@@ -9,21 +8,14 @@ export async function GET(req) {
   const timeframe = options.get('timeframe');
 
   if (!symbols | !startDate | !endDate | !timeframe) {
-    return new Response('No data received!', { status: 404 });
+    return new Response('No data received!', { status: 403 });
   }
 
-  const dataList = [];
-
   try {
-    for (const symbol of symbols) {
-      const data = await getBars(alpaca, symbol, startDate, endDate, timeframe, false);
-      dataList.push({symbol, data});
-      console.log(symbol + ' is downloaded');
-    }
+    const dataList = await getBars(symbols, startDate, endDate, timeframe);
+    return Response.json(dataList);
   } catch (err) {
     console.error(err);
     return new Response(err, { status: 500 });
   }
-
-  return Response.json(dataList);
 }

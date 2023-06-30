@@ -72,7 +72,7 @@ export default function CompanyList() {
       },
     });
 
-    barToCSVDownload(response.data, true);
+    barToCSVDownload(response.data, timeframe);
   };
 
   return (

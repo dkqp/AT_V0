@@ -1,35 +1,20 @@
-const test1 = async (alpaca) => {
-  alpaca.getAccount().then((account) => {
-    console.log("Current Account:", account);
-  });
-};
+import axios from "axios";
 
-const test2 = async (alpaca, symbol, options) => {
-  const dataList = [];
-  const dataPromises = alpaca.getTradesV2(symbol, options);
-  for await (let dataPromise of dataPromises) {
-    dataList.push(dataPromise);
-  }
+const getStockBarsAPI = async (symbols, options) => {
+  const { start, end, timeframe } = options;
+  const AxiosOptions = {
+    method: 'GET',
+    url: `https://data.alpaca.markets/v2/stocks/bars?symbols=${symbols.join(',')}&timeframe=${timeframe}&start=${start}&end=${end}&limit=1000&adjustment=raw`,
+    headers: {
+      accept: 'application/json',
+      'APCA-API-KEY-ID': process.env.ALPACA_PAPER_KEY,
+      'APCA-API-SECRET-KEY': process.env.ALPACA_PAPER_KEY_SECRET,
+    },
+  };
 
-  return dataList;
-};
+  const dataList = await axios(AxiosOptions);
 
-const test3 = async (alpaca, feed) => {
-  const eqPromises = await alpaca.getAssets({
-    status: 'active',
-  });
-
-  return eqPromises.filter(asset => asset.exchange == 'NASDAQ');
-};
-
-const getBarsAPI = async (alpaca, symbol, options) => {
-  const dataList = [];
-  const dataPromises = alpaca.getBarsV2(symbol, options);
-  for await (let dataPromise of dataPromises) {
-    dataList.push(dataPromise)
-  }
-
-  return dataList
+  return dataList.data.bars;
 }
 
-export {test1, test2, test3, getBarsAPI};
+export { getStockBarsAPI };
