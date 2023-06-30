@@ -32,8 +32,16 @@ export default function CompanyList() {
         setCompanyList(
           response.data.map(company => (
             <tr key={company[0]}>
-              <td>{company[1]}</td>
               <td>{company[0]}</td>
+              <td>{company[1]}</td>
+              <td>
+                {company[2] === '1' && (
+                  <input type="checkbox" id="scales" checked readOnly />
+                )}
+                {company[2] === '0' && (
+                  <input type="checkbox" id="scales" readOnly />
+                )}
+              </td>
             </tr>
           )),
         );
@@ -81,8 +89,9 @@ export default function CompanyList() {
         <table>
           <thead>
             <tr>
-              <th>Company Name</th>
               <th>Symbol</th>
+              <th>Company Name</th>
+              <th>Judge</th>
             </tr>
           </thead>
           <tbody>{companyList}</tbody>
