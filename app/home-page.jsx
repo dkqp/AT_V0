@@ -9,6 +9,7 @@ import Header from '@/components/header';
 import { test1, test2, test3 } from '@/services/dataapi';
 import { barToCSVDownload, getBars } from '@/utils/data_handling';
 import CompanyList from '@/components/company_list';
+import Order from '@/components/order';
 
 export default function HomePage() {
   useEffect(() => {
@@ -57,7 +58,9 @@ export default function HomePage() {
           <div style={{ width: '25%' }}>
             <CompanyList />
           </div>
-          <div>Empty space</div>
+          <div>
+            <Order />
+          </div>
         </Row1>
       </Body>
     </main>
