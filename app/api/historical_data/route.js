@@ -1,30 +1,21 @@
-import { alpaca } from "@/config/alpaca_config";
+import { getBars } from '@/utils/data_handling';
 
-export async function GET(req, res) {
-  const accountInfo = await alpaca.getAccount();
-  return new Response(accountInfo.id);
-  // const query = req.nextUrl.searchParams;
-  // let symbol;
-  // const options = {};
-  // for (const [key, value] of req.nextUrl.searchParams.entries()) {
-  //   if (key == 'symbol') {
-  //     symbol = value;
-  //     continue;
-  //   }
-  //   options[key] = value;
-  // }
-  // console.log(symbol);
-  // console.log(options);
+export async function GET(req) {
+  const options = req.nextUrl.searchParams;
+  const symbols = options.get('symbols').split(',');
+  const startDate = options.get('startDate');
+  const endDate = options.get('endDate');
+  const timeframe = options.get('timeframe');
 
-  // const data = await API({
-  //   method: 'get',
-  //   url: `/stocks/${symbol}/trades`,
-  //   params: {
-  //     ...options
-  //   }
-  // });
+  if (!symbols | !startDate | !endDate | !timeframe) {
+    return new Response('No data received!', { status: 403 });
+  }
 
-  // console.log(Object.keys(data));
-
-  // return new Response(data);
+  try {
+    const dataList = await getBars(symbols, startDate, endDate, timeframe);
+    return Response.json(dataList);
+  } catch (err) {
+    console.error(err);
+    return new Response(err, { status: 500 });
+  }
 }

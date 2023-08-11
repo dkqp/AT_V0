@@ -57,4 +57,26 @@ const barToCSVDownload = (barList, timeframe) => {
   return;
 }
 
+// const findIndexOfCommonItem = (source, target) => {
+//   const sourceTime = source.split('Z')[0];
+//   let firstIndex = 0;
+//   let lastIndex = target.length - 1;
+
+//   while (firstIndex <= lastIndex) {
+//     const mIndex = Math.floor((firstIndex + lastIndex) / 2);
+//     const targetTime = target[mIndex].split('Z')[0];
+
+//     if (sourceTime === targetTime) {
+//       lastIndex = mIndex;
+//       break;
+//     } else if (sourceTime > targetTime) {
+//       firstIndex = mIndex + 1;
+//     } else {
+//       lastIndex = mIndex - 1;
+//     }
+//   }
+
+//   return lastIndex;
+// }
+
 export { getBars, barToCSVDownload };

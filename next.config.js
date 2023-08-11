@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  swcMinify: true,
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   reactStrictMode: false,
   webpack: (config, { isServer }) => {
@@ -10,7 +15,7 @@ const nextConfig = {
       config.resolve.fallback = {
         fs: false,
         bufferutil: false,
-      };  
+      };
     }
     return config;
   },

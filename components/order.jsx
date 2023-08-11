@@ -1,28 +1,12 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
-import axios from 'axios';
+import { orderTest } from '@/services/backendapi';
 
 export default function Order() {
-  const orderTest = async (event, side) => {
-    event.preventDefault();
-    window.alert(`${side} order begins!`);
-
-    await axios({
-      method: 'post',
-      baseURL: '/api',
-      url: '/order',
-      data: [
-        {
-          side,
-          symbol: 'AAPL',
-          qty: 15,
-        },
-      ],
-    });
-  };
-
   return (
     <Wrapper>
       <button

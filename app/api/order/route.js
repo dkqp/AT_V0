@@ -1,4 +1,5 @@
 import { orderAPI } from '@/services/orderapi';
+import { recordLogs } from '@/utils/record_logs';
 
 export async function POST(req) {
   const options = await req.json();
@@ -24,8 +25,10 @@ export async function POST(req) {
     const res = await orderAPI(side, symbol, qty, notional);
     if (res.status == 200) {
       accepted.push({ side, symbol, qty, notional });
+      recordLogs('post_A', `Accepted. ${side} | ${symbol} | qty: ${qty} | notional: ${notional}.`);
     } else {
       denied.push({ side, symbol, qty, notional });
+      recordLogs('post_A', `Denied. ${side} | ${symbol} | qty: ${qty} | notional: ${notional}.`);
     }
   });
 

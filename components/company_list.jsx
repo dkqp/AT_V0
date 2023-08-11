@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
-import axios from 'axios';
-
-import { barToCSVDownload } from '@/utils/data_handling';
+import { download_all_list, getCompanyList } from '@/services/backendapi';
 
 export default function CompanyList() {
   const [companyList, setCompanyList] = useState();
@@ -23,11 +21,7 @@ export default function CompanyList() {
 
   useEffect(() => {
     (async () => {
-      const response = await axios({
-        method: 'get',
-        baseURL: '/api',
-        url: '/historical_data/company_list',
-      });
+      const response = await getCompanyList();
       if (response.data) {
         setCompanyList(
           response.data.map(company => (
@@ -57,31 +51,6 @@ export default function CompanyList() {
       }
     })();
   }, []);
-
-  const download_all_list = async (
-    event,
-    selectedSymbols,
-    startDate,
-    endDate,
-    timeframe,
-  ) => {
-    event.preventDefault();
-    window.alert('Download begins!');
-
-    const response = await axios({
-      method: 'get',
-      baseURL: '/api',
-      url: '/historical_data/download_stock_data',
-      params: {
-        symbols: selectedSymbols.join(','),
-        startDate: new Date(startDate).toJSON(),
-        endDate: new Date(endDate).toJSON(),
-        timeframe: timeframe,
-      },
-    });
-
-    barToCSVDownload(response.data, timeframe);
-  };
 
   return (
     <Wrapper>

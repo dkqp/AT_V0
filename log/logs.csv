@@ -1,0 +1,14 @@
+Time,Type,Details
+2023-07-04T09:28:05.718Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T09:28:07.418Z,Send data to Alpaca,Accepted. sell | AAPL | qty: 15 | notional: undefined.
+2023-07-04T11:54:40.055Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T12:01:46.767Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T12:53:41.623Z,Test purpose action,test1
+2023-07-04T12:53:42.477Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T12:54:43.454Z,Test purpose action,test1
+2023-07-04T12:54:44.033Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T12:55:00.231Z,Test purpose action,test1
+2023-07-04T12:55:00.803Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T14:04:00.847Z,Test purpose action,test1
+2023-07-04T14:04:01.597Z,Send data to Alpaca,Accepted. buy | AAPL | qty: 15 | notional: undefined.
+2023-07-04T15:21:35.326Z,Send data to Alpaca,Accepted. sell | AAPL | qty: 15 | notional: undefined.

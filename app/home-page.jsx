@@ -1,15 +1,11 @@
 'use client';
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Header from '@/components/header';
 
-import { test1, test2, test3 } from '@/services/dataapi';
-import { barToCSVDownload, getBars } from '@/utils/data_handling';
 import CompanyList from '@/components/company_list';
-import Order from '@/components/order';
 
 export default function HomePage() {
   useEffect(() => {
@@ -58,9 +54,6 @@ export default function HomePage() {
           <div style={{ width: '25%' }}>
             <CompanyList />
           </div>
-          <div>
-            <Order />
-          </div>
         </Row1>
       </Body>
     </main>
@@ -69,12 +62,14 @@ export default function HomePage() {
 
 const Body = styled.div`
   width: 100%;
-  display: column;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `;
 
 const Row1 = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
