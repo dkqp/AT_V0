@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+import React from 'react';
 import styled from 'styled-components';
 
 import { orderTest } from '@/services/backendapi';

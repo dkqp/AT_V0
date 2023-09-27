@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+
 import {
   LiaToggleOnSolid as OnIcon,
   LiaToggleOffSolid as OffIcon,
 } from 'react-icons/lia';
 
-import { getCompanyList, getJudgeList, newOrder } from '@/services/backendapi';
+import { getCompanyList } from '@/services/backendapi';
+import { alarming } from '@/services/alarmapi';
+import { periodicSignal } from '@/recoilstore/atoms';
 
 export default function Header() {
-  const [algoOn, setAlgoOn] = useState(true);
-  const [queue, setQueue] = useState([]);
+  const [algoOn, setAlgoOn] = useRecoilState(periodicSignal);
+
   const [symbols, setSymbols] = useState([]);
   const router = useRouter();
 
@@ -32,13 +36,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    // periodical signaling to Backend server
     if (algoOn) {
       const inter = setInterval(async () => {
-        const newQueue = await getJudgeList(symbols);
-
-        if (newQueue.data?.length > 0) {
-          setQueue([...queue, ...newQueue.data]);
-        }
+        await alarming(symbols);
       }, 180000);
 
       return () => {
@@ -46,13 +47,6 @@ export default function Header() {
       };
     }
   }, [algoOn, symbols]);
-
-  useEffect(() => {
-    if (queue.length > 0) {
-      newOrder(queue);
-      setQueue([]);
-    }
-  }, [queue]);
 
   return (
     <Wrapper>
