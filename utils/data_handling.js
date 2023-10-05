@@ -57,26 +57,30 @@ const barToCSVDownload = (barList, timeframe) => {
   return;
 }
 
-// const findIndexOfCommonItem = (source, target) => {
-//   const sourceTime = source.split('Z')[0];
-//   let firstIndex = 0;
-//   let lastIndex = target.length - 1;
+const make_log_table = (logs) => {
+  const logKeys = Object.keys(Object(logs[0]));
 
-//   while (firstIndex <= lastIndex) {
-//     const mIndex = Math.floor((firstIndex + lastIndex) / 2);
-//     const targetTime = target[mIndex].split('Z')[0];
+  const contents = logs.map(log => {
+    const logValues = Object.values(log);
+    return (
+      <tr key={logValues[0]}>
+        {logKeys.map(key => (
+          <td key={key}>{log[key]}</td>
+        ))}
+      </tr>
+    );
+  });
 
-//     if (sourceTime === targetTime) {
-//       lastIndex = mIndex;
-//       break;
-//     } else if (sourceTime > targetTime) {
-//       firstIndex = mIndex + 1;
-//     } else {
-//       lastIndex = mIndex - 1;
-//     }
-//   }
+  return (
+    <tbody>
+      <tr>
+        {logKeys.map(key => (
+          <th key={key}>{key}</th>
+        ))}
+      </tr>
+      {contents}
+    </tbody>
+  );
+}
 
-//   return lastIndex;
-// }
-
-export { getBars, barToCSVDownload };
+export { getBars, barToCSVDownload, make_log_table };

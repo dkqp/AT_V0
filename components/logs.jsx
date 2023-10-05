@@ -1,53 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { getLogs } from '@/services/backendapi';
+import { get_logs, update_logs } from '@/services/logapi';
+import { make_log_table } from '@/utils/data_handling';
 
 export default function Logs() {
   const [logs, setLogs] = useState([]);
+  const [updatedDate, setUpdatedDate] = useState();
 
   useEffect(() => {
-    const inter = setInterval(async () => {
-      const loaded = await getLogs(logs);
-      if (loaded.length > 0) {
-        setLogs([...logs, ...loaded]);
-      }
-    }, 3000);
+    (async function () {
+      const loadedLogs = await get_logs();
+      setLogs(loadedLogs.data);
+      setUpdatedDate(Date());
+    })();
+  }, []);
 
-    return () => {
-      clearInterval(inter);
-    };
-  }, [logs]);
+  const update_log_table = async () => {
+    const loadedLogs = await update_logs();
+    setLogs(loadedLogs.data);
+    setUpdatedDate(Date());
+  };
 
   return (
     <Wrapper>
-      <h2>Logs</h2>
-      {logs.map(log => {
-        const logSplit = log.split(',');
-        return (
-          <LogWrapper key={log.split(',')[0]}>
-            <div style={{ width: '30%' }}>{logSplit[0]}</div>
-            <div style={{ width: '20%' }}>{logSplit[1]}</div>
-            <div style={{ width: '50%' }}>{logSplit[2]}</div>
-          </LogWrapper>
-        );
-      })}
+      <LogHead>
+        <p style={{ width: '40%' }}>updated: {updatedDate}</p>
+        <h2 style={{ width: '20%', textAlign: 'center' }}>Logs</h2>
+        <div
+          style={{
+            width: '40%',
+            display: 'flex',
+            flexDirection: 'row-reverse',
+          }}
+        >
+          <button onClick={update_log_table}>reflesh</button>
+        </div>
+      </LogHead>
+      <LogTable>{make_log_table(logs)}</LogTable>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  height: 100%;
-  width: 50%;
+  width: 80%;
+  max-height: 90vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
 `;
 
-const LogWrapper = styled.div`
+const LogHead = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LogTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  tr,
+  th,
+  td {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #000;
+  }
 `;
