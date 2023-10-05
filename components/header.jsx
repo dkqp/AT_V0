@@ -58,7 +58,7 @@ export default function Header() {
       <h3>Trade based on rules</h3>
       <p>contact: ltg0513@gmail.com</p>
       <Div1>
-        <button onClick={() => router.push('/test')}>Test page</button>
+        <button onClick={() => router.push('/log')}>Log page</button>
       </Div1>
     </Wrapper>
   );
