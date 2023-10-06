@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
+import SelectDates from './micro_components/select_dates';
+
 import { download_all_list, getCompanyList } from '@/services/backendapi';
 
 export default function CompanyList() {
@@ -67,26 +69,7 @@ export default function CompanyList() {
         </table>
       </List>
       <Download>
-        <Dates>
-          <StartDate>
-            <p>start date</p>
-            <input
-              type="date"
-              onChange={e => {
-                setStartDate(e.target.value);
-              }}
-            />
-          </StartDate>
-          <EndDate>
-            <p>end date</p>
-            <input
-              type="date"
-              onChange={e => {
-                setEndDate(e.target.value);
-              }}
-            />
-          </EndDate>
-        </Dates>
+        <SelectDates setStartDate={setStartDate} setEndDate={setEndDate} />
         <Select
           name="timeframe"
           placeholder="time frame"
@@ -166,33 +149,4 @@ const Download = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-`;
-
-const Dates = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const StartDate = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    height: 5px;
-  }
-`;
-
-const EndDate = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    height: 5px;
-  }
 `;

@@ -88,4 +88,16 @@ const make_log_table = (logs, sort_function) => {
   );
 }
 
-export { getBars, barToCSVDownload, make_log_table };
+const filter_log_by_date = (logs, startDate = undefined, endDate = undefined) => {
+  if (startDate) {
+    logs = logs.filter(log => log.date_server >= startDate);
+  }
+
+  if (endDate) {
+    logs = logs.filter(log => log.date_server <= endDate)
+  }
+
+  return logs;
+}
+
+export { getBars, barToCSVDownload, make_log_table, filter_log_by_date };

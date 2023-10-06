@@ -9,6 +9,10 @@ const download_all_list = async (
   timeframe,
 ) => {
   event.preventDefault();
+  if (!startDate || !endDate) {
+    window.alert('Set start/end date properly!');
+    return;
+  }
   window.alert('Download begins!');
 
   const response = await axios({
@@ -17,8 +21,8 @@ const download_all_list = async (
     url: '/historical_data',
     params: {
       symbols: selectedSymbols.join(','),
-      startDate: new Date(startDate).toJSON(),
-      endDate: new Date(endDate).toJSON(),
+      startDate: startDate.toJSON(),
+      endDate: endDate.toJSON(),
       timeframe: timeframe,
     },
   });
