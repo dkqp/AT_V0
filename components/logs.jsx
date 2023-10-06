@@ -22,6 +22,22 @@ export default function Logs() {
     setUpdatedDate(Date());
   };
 
+  const sort_logs = key => {
+    setLogs(logs => {
+      const sortedLogs = [...logs];
+
+      return sortedLogs.sort((a, b) => {
+        if (a[key] > b[key]) {
+          return 1;
+        } else if (a[key] < b[key]) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    });
+  };
+
   return (
     <Wrapper>
       <LogHead>
@@ -37,7 +53,7 @@ export default function Logs() {
           <button onClick={update_log_table}>reflesh</button>
         </div>
       </LogHead>
-      <LogTable>{make_log_table(logs)}</LogTable>
+      <LogTable>{make_log_table(logs, sort_logs)}</LogTable>
     </Wrapper>
   );
 }
@@ -69,5 +85,14 @@ const LogTable = styled.table`
     text-align: center;
     vertical-align: middle;
     border: 1px solid #000;
+  }
+
+  th.keys_for_sort {
+    cursor: pointer;
+    background-color: #ccc;
+
+    :hover {
+      color: white;
+    }
   }
 `;

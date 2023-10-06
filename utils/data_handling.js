@@ -1,6 +1,8 @@
 import { getStockBarsAPI } from "@/services/dataapi"
 import JSZip from "jszip";
 
+const KEYS_FOR_SORT = ['status', 'symbol'];
+
 const getBars = async (symbols, startDate, endDate, timeframe) => {
   const options = {
     start: startDate,
@@ -57,7 +59,7 @@ const barToCSVDownload = (barList, timeframe) => {
   return;
 }
 
-const make_log_table = (logs) => {
+const make_log_table = (logs, sort_function) => {
   const logKeys = Object.keys(Object(logs[0]));
 
   const contents = logs.map(log => {
@@ -74,9 +76,12 @@ const make_log_table = (logs) => {
   return (
     <tbody>
       <tr>
-        {logKeys.map(key => (
-          <th key={key}>{key}</th>
-        ))}
+        {logKeys.map(key => {
+          if (KEYS_FOR_SORT.includes(key)) {
+            return <th className="keys_for_sort" onClick={() => {sort_function(key)}} key={key}>{key}</th>
+          }
+          return <th key={key}>{key}</th>
+        })}
       </tr>
       {contents}
     </tbody>
