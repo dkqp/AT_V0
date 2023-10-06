@@ -1,6 +1,8 @@
 import { getStockBarsAPI } from "@/services/dataapi"
 import JSZip from "jszip";
 
+const KEYS_FOR_SORT = ['status', 'symbol'];
+
 const getBars = async (symbols, startDate, endDate, timeframe) => {
   const options = {
     start: startDate,
@@ -57,26 +59,45 @@ const barToCSVDownload = (barList, timeframe) => {
   return;
 }
 
-// const findIndexOfCommonItem = (source, target) => {
-//   const sourceTime = source.split('Z')[0];
-//   let firstIndex = 0;
-//   let lastIndex = target.length - 1;
+const make_log_table = (logs, sort_function) => {
+  const logKeys = Object.keys(Object(logs[0]));
 
-//   while (firstIndex <= lastIndex) {
-//     const mIndex = Math.floor((firstIndex + lastIndex) / 2);
-//     const targetTime = target[mIndex].split('Z')[0];
+  const contents = logs.map(log => {
+    const logValues = Object.values(log);
+    return (
+      <tr key={logValues[0]}>
+        {logKeys.map(key => (
+          <td key={key}>{log[key]}</td>
+        ))}
+      </tr>
+    );
+  });
 
-//     if (sourceTime === targetTime) {
-//       lastIndex = mIndex;
-//       break;
-//     } else if (sourceTime > targetTime) {
-//       firstIndex = mIndex + 1;
-//     } else {
-//       lastIndex = mIndex - 1;
-//     }
-//   }
+  return (
+    <tbody>
+      <tr>
+        {logKeys.map(key => {
+          if (KEYS_FOR_SORT.includes(key)) {
+            return <th className="keys_for_sort" onClick={() => {sort_function(key)}} key={key}>{key}</th>
+          }
+          return <th key={key}>{key}</th>
+        })}
+      </tr>
+      {contents}
+    </tbody>
+  );
+}
 
-//   return lastIndex;
-// }
+const filter_log_by_date = (logs, startDate = undefined, endDate = undefined) => {
+  if (startDate) {
+    logs = logs.filter(log => log.date_server >= startDate);
+  }
 
-export { getBars, barToCSVDownload };
+  if (endDate) {
+    logs = logs.filter(log => log.date_server <= endDate)
+  }
+
+  return logs;
+}
+
+export { getBars, barToCSVDownload, make_log_table, filter_log_by_date };

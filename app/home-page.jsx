@@ -24,14 +24,12 @@ export default function HomePage() {
 
 const Body = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  max-height: 90vh;
 `;
 
 const Row1 = styled.div`
   width: 100%;
+  max-height: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
