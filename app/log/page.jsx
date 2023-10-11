@@ -26,7 +26,6 @@ const Body = styled.div`
 
 const Row1 = styled.div`
   width: 100%;
-  max-height: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

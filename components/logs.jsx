@@ -74,7 +74,7 @@ export default function Logs() {
           <SelectDates setStartDate={setStartDate} setEndDate={setEndDate} />
         </div>
       </LogHead>
-      <LogTable>{make_log_table(logs, sort_logs)}</LogTable>
+      {make_log_table(logs, sort_logs)}
     </Wrapper>
   );
 }
@@ -86,19 +86,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
-const LogHead = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LogTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
   tr,
   th,
@@ -110,10 +102,24 @@ const LogTable = styled.table`
 
   th.keys_for_sort {
     cursor: pointer;
-    background-color: #ccc;
+    color: orange;
 
     :hover {
-      color: white;
+      color: coral;
+      scale: 1.05;
     }
   }
+
+  thead {
+    background-color: #333;
+    color: #fff;
+  }
+`;
+
+const LogHead = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
