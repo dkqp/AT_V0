@@ -74,17 +74,21 @@ const make_log_table = (logs, sort_function) => {
   });
 
   return (
-    <tbody>
-      <tr>
-        {logKeys.map(key => {
-          if (KEYS_FOR_SORT.includes(key)) {
-            return <th className="keys_for_sort" onClick={() => {sort_function(key)}} key={key}>{key}</th>
-          }
-          return <th key={key}>{key}</th>
-        })}
-      </tr>
-      {contents}
-    </tbody>
+    <table>
+      <thead>
+        <tr>
+          {logKeys.map(key => {
+            if (KEYS_FOR_SORT.includes(key)) {
+              return <th className="keys_for_sort" onClick={() => {sort_function(key)}} key={key}>{key}</th>
+            }
+            return <th key={key}>{key}</th>
+          })}
+        </tr>
+      </thead>
+      <tbody>
+        {contents}
+      </tbody>
+    </table>
   );
 }
 

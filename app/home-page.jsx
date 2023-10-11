@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Header from '@/components/header';
 
 import CompanyList from '@/components/company_list';
+import Settings from '@/components/settings';
 
 export default function HomePage() {
   return (
@@ -13,8 +14,11 @@ export default function HomePage() {
       <Header />
       <Body>
         <Row1>
-          <div style={{ width: '25%' }}>
+          <div style={{ width: '30%' }}>
             <CompanyList />
+          </div>
+          <div style={{ width: '30%' }}>
+            <Settings />
           </div>
         </Row1>
       </Body>
@@ -29,7 +33,6 @@ const Body = styled.div`
 
 const Row1 = styled.div`
   width: 100%;
-  max-height: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

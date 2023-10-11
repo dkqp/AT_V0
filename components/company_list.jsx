@@ -32,10 +32,10 @@ export default function CompanyList() {
               <td>{company[1]}</td>
               <td>
                 {company[2] === '1' && (
-                  <input type="checkbox" id="scales" checked readOnly />
+                  <input name={company[0]} type="checkbox" checked readOnly />
                 )}
                 {company[2] === '0' && (
-                  <input type="checkbox" id="scales" readOnly />
+                  <input name={company[0]} type="checkbox" readOnly />
                 )}
               </td>
             </tr>
@@ -56,6 +56,7 @@ export default function CompanyList() {
 
   return (
     <Wrapper>
+      <h2>Company List</h2>
       <List>
         <table>
           <thead>
@@ -107,11 +108,25 @@ export default function CompanyList() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
+  overflow-y: visible;
+`;
+
+const List = styled.div`
+  width: 100%;
+  height: 60vh;
+  padding: 5%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  border: 1px solid #333;
+  overflow-y: scroll;
 
   table {
     width: 100%;
@@ -129,22 +144,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const List = styled.div`
-  width: 100%;
-  height: 50vh;
-  padding: 5%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  border: 1px solid #333;
-  overflow-y: scroll;
-`;
-
 const Download = styled.div`
   width: 100%;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
