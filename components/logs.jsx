@@ -70,7 +70,7 @@ export default function Logs() {
             alignItems: 'center',
           }}
         >
-          <button onClick={update_log_table}>reflesh</button>
+          <button onClick={update_log_table}>refresh</button>
           <SelectDates setStartDate={setStartDate} setEndDate={setEndDate} />
         </div>
       </LogHead>
