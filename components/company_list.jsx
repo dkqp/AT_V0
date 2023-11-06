@@ -17,8 +17,8 @@ export default function CompanyList() {
   const timeframeOption = [
     { value: '1Day', label: '1 day' },
     { value: '1Hour', label: '1 hour' },
-    { value: '30Minute', label: '30 mins' },
-    { value: '15Minute', label: '15 mins' },
+    { value: '30Min', label: '30 mins' },
+    { value: '15Min', label: '15 mins' },
   ];
 
   useEffect(() => {
