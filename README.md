@@ -1,3 +1,5 @@
+**You should follow the [project instruction](https://github.com/AutoBuySell) first to have a fully working service**
+
 ## Installation (In local server)
 1. Install NVM
     1. Node Version Manager(NVM)
@@ -34,4 +36,4 @@ NEXT_PUBLIC_BACKEND_SERVER_URL=http://localhost:8001
        NVDA,Nvidia,1
        ```
 9. Start server
-    1. npm run dev
+    1. `npm run dev`
