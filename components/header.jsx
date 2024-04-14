@@ -9,7 +9,10 @@ import {
 } from 'react-icons/lia';
 
 import { getCompanyList } from '@/services/backendapi';
-import { alarming } from '@/services/alarmapi';
+import {
+  backend_server_alarming,
+  data_server_alarming,
+} from '@/services/alarmapi';
 import { periodicSignal } from '@/recoilstore/atoms';
 
 export default function Header() {
@@ -38,12 +41,17 @@ export default function Header() {
   useEffect(() => {
     // periodical signaling to Backend server
     if (algoOn) {
-      const inter = setInterval(async () => {
-        await alarming(symbols);
+      const inter_backend_server = setInterval(async () => {
+        await backend_server_alarming(symbols);
       }, 180000);
 
+      const inter_data_server = setInterval(async () => {
+        await data_server_alarming();
+      }, 1800000);
+
       return () => {
-        clearInterval(inter);
+        clearInterval(inter_backend_server);
+        clearInterval(inter_data_server);
       };
     }
   }, [algoOn, symbols]);

@@ -3,7 +3,7 @@ import axios from "axios";
 const get_logs = async () => {
   const loaded = await axios({
     method: 'get',
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_SERVER_URL,
+    baseURL: process.env.NEXT_PUBLIC_DATA_SERVER_URL,
     url: '/logs',
   });
 
@@ -13,7 +13,7 @@ const get_logs = async () => {
 const update_logs = async () => {
   const loaded = await axios({
     method: 'put',
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_SERVER_URL,
+    baseURL: process.env.NEXT_PUBLIC_DATA_SERVER_URL,
     url: '/logs',
   });
 
