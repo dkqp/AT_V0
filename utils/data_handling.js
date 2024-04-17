@@ -1,7 +1,7 @@
 import { getStockBarsAPI } from "@/services/dataapi"
 import JSZip from "jszip";
 
-const KEYS_FOR_SORT = ['status', 'symbol'];
+const KEYS_FOR_SORT = ['action', 'orderId', 'dateTime', 'orderSide', 'symbol'];
 
 const getBars = async (symbols, startDate, endDate, timeframe) => {
   const options = {
@@ -62,10 +62,9 @@ const barToCSVDownload = (barList, timeframe) => {
 const make_log_table = (logs, sort_function) => {
   const logKeys = Object.keys(Object(logs[0]));
 
-  const contents = logs.map(log => {
-    const logValues = Object.values(log);
+  const contents = logs.map((log, i) => {
     return (
-      <tr key={logValues[0]}>
+      <tr key={i}>
         {logKeys.map(key => (
           <td key={key}>{log[key]}</td>
         ))}
@@ -75,7 +74,7 @@ const make_log_table = (logs, sort_function) => {
 
   return (
     <table>
-      <thead>
+      <thead style={{position: 'sticky', top: 0}}>
         <tr>
           {logKeys.map(key => {
             if (KEYS_FOR_SORT.includes(key)) {
@@ -94,11 +93,11 @@ const make_log_table = (logs, sort_function) => {
 
 const filter_log_by_date = (logs, startDate = undefined, endDate = undefined) => {
   if (startDate) {
-    logs = logs.filter(log => log.date_server >= startDate);
+    logs = logs.filter(log => log.dateTime >= startDate);
   }
 
   if (endDate) {
-    logs = logs.filter(log => log.date_server <= endDate)
+    logs = logs.filter(log => log.dateTime < endDate)
   }
 
   return logs;

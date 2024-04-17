@@ -82,10 +82,11 @@ export default function Logs() {
 const Wrapper = styled.div`
   width: 80%;
   max-height: 90vh;
+  overflow-x: auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 
   table {
     width: 100%;
