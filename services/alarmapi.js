@@ -17,7 +17,7 @@ const data_server_alarming = async () => {
   const response = await axios({
     method: 'get',
     baseURL: process.env.NEXT_PUBLIC_DATA_SERVER_URL,
-    url: '/logging/alarm',
+    url: '/logs/alarm',
   });
 
   console.log(response);
