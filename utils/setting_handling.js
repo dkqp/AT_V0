@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import InputboxMessage from '@/components/micro_components/Inputbox_message';
+import InputboxMessage from '@/components/micro_components/inputbox_message';
 
 import { set_settings } from "@/services/settingapi";
 

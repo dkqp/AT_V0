@@ -78,7 +78,7 @@ export default function Settings() {
         <p>{settingSymbol}</p>
         <Select
           name="symbol"
-          placeHolder="Default"
+          placeholder="Default"
           options={symbolOption}
           onChange={e => {
             setSettingSymbol(e.value);

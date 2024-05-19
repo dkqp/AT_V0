@@ -6,9 +6,9 @@ const getStockBarsAPI = async (symbols, options) => {
 
   while (true) {
     const { start, end, timeframe } = options;
-    const AxiosOptions = {
+    const axiosOptions = {
       method: 'GET',
-      url: 'https://data.alpaca.markets/v2/stocks/bars',
+      url: `${process.env.ALPACA_HISTORY_DATA_URL}/stocks/bars`,
       headers: {
         accept: 'application/json',
         'APCA-API-KEY-ID': process.env.ALPACA_PAPER_KEY,
@@ -25,10 +25,10 @@ const getStockBarsAPI = async (symbols, options) => {
     };
 
     if (page_token) {
-      AxiosOptions.params['page_token'] = page_token;
+      axiosOptions.params['page_token'] = page_token;
     }
 
-    const response = await axios(AxiosOptions);
+    const response = await axios(axiosOptions);
 
     for (const key in response.data.bars) {
       if (key in dataList) {

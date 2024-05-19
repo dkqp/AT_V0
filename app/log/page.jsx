@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Header from '@/components/header';
 import Logs from '@/components/logs';
 
-export default function TestPage() {
+export default function LogPage() {
   return (
     <main>
       <Header />

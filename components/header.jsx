@@ -67,6 +67,7 @@ export default function Header() {
       <p>contact: ltg0513@gmail.com</p>
       <Div1>
         <button onClick={() => router.push('/log')}>Log page</button>
+        <button onClick={() => router.push('/analysis')}>Analysis page</button>
       </Div1>
     </Wrapper>
   );
