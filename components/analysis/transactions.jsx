@@ -17,8 +17,8 @@ export default function Transactions() {
 
       let transactionsSum = 0;
       for (let i = transactionsData.length - 1; i >= 0; i--) {
-        transactionsSum += transactionsData[i]['netAmount'];
         transactionsData[i]['accNetAmount'] = transactionsSum;
+        transactionsSum += transactionsData[i]['netAmount'];
       }
 
       setTransactions(transactionsData);
