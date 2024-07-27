@@ -36,14 +36,16 @@ const getTransactionsAPI = async () => {
     return response.data;
 }
 
-const getEquityIncomeAPI = async (symbol, incomeType) => {
+const getEquityPerformanceAPI = async (symbol, startDate, endDate, dateInterval) => {
     const axiosOptions = {
         method: 'GET',
         baseURL: process.env.NEXT_PUBLIC_DATA_SERVER_URL,
-        url: '/stats/equity_income',
+        url: '/stats/equity_performance',
         params: {
             symbol,
-            incomeType,
+            startDate,
+            endDate,
+            dateInterval
         }
     };
 
@@ -56,5 +58,5 @@ export {
     getNominalIncomeAPI,
     getCurrentAssetsAPI,
     getTransactionsAPI,
-    getEquityIncomeAPI,
+    getEquityPerformanceAPI,
 }

@@ -28,7 +28,7 @@ export default function NominalIncomes() {
           yData: data.nominalIncomes,
           title: 'Nominal Incomes Graph',
           xLabel: 'Symbols',
-          yLabel: 'Nominal Incomes',
+          yLabel: 'Nominal Incomes ($)',
         })
       )}
     </Wrapper>

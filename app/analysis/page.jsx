@@ -4,11 +4,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Header from '@/components/header';
-import OverallState from '@/components/analysis/overall';
 import NominalIncomes from '@/components/analysis/nominal_incomes';
 import CurrentAssets from '@/components/analysis/current_positions';
-import FinancialChart from '@/components/analysis/transactions';
-import EachEquityIncome from '@/components/analysis/each_equity_income';
+import Transactions from '@/components/analysis/transactions';
+import EachEquityPerformance from '@/components/analysis/each_equity_performance';
 
 export default function AnalysisPage() {
   return (
@@ -17,7 +16,7 @@ export default function AnalysisPage() {
       <Body>
         <Row1>
           <Row1Col1>
-            <FinancialChart />
+            <Transactions />
           </Row1Col1>
           <Row1Col2>
             <Row1Col2Row1>
@@ -29,7 +28,7 @@ export default function AnalysisPage() {
           </Row1Col2>
         </Row1>
         <Row2>
-          <EachEquityIncome />
+          <EachEquityPerformance />
         </Row2>
       </Body>
     </main>
