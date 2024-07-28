@@ -6,6 +6,12 @@ const periodicSignal = atom({
   default: false,
 });
 
+const algoSymbols = atom({
+  key: `algoSymbols/${v4()}`,
+  default: [],
+});
+
 export {
   periodicSignal,
+  algoSymbols,
 };

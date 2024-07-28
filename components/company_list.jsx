@@ -4,10 +4,19 @@ import styled from 'styled-components';
 
 import SelectDates from './micro_components/select_dates';
 
-import { download_all_list, getCompanyList } from '@/services/backendapi';
+import {
+  download_all_list,
+  getCompanyList,
+  putCompanyList,
+} from '@/services/backendapi';
+
+import { useSetRecoilState } from 'recoil';
+import { algoSymbols } from '@/recoilstore/atoms';
 
 export default function CompanyList() {
   const [companyList, setCompanyList] = useState();
+  const setAlgoSymbols = useSetRecoilState(algoSymbols);
+
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [timeframe, setTimeframe] = useState();
@@ -25,21 +34,12 @@ export default function CompanyList() {
     (async () => {
       const response = await getCompanyList();
       if (response.data) {
-        setCompanyList(
-          response.data.map(company => (
-            <tr key={company[0]}>
-              <td>{company[0]}</td>
-              <td>{company[1]}</td>
-              <td>
-                {company[2] === '1' && (
-                  <input name={company[0]} type="checkbox" checked readOnly />
-                )}
-                {company[2] === '0' && (
-                  <input name={company[0]} type="checkbox" readOnly />
-                )}
-              </td>
-            </tr>
-          )),
+        makeCompanyCheckList(response.data);
+
+        setAlgoSymbols(
+          response.data
+            .filter(company => company[2] === '1')
+            .map(company => company[0]),
         );
 
         setSymbolOption(
@@ -53,6 +53,44 @@ export default function CompanyList() {
       }
     })();
   }, []);
+
+  const makeCompanyCheckList = data => {
+    setCompanyList(
+      data.map((company, index) => (
+        <tr key={company[0]}>
+          <td>{company[0]}</td>
+          <td>{company[1]}</td>
+          <td>
+            <input
+              id={index}
+              name={company[0]}
+              type="checkbox"
+              checked={company[2] === '1' ? true : false}
+              onChange={setCompanyChecks}
+            />
+          </td>
+        </tr>
+      )),
+    );
+  };
+
+  const setCompanyChecks = async e => {
+    const response = await putCompanyList(
+      e.target.id,
+      e.target.name,
+      e.target.checked,
+    );
+
+    if (response.data) {
+      makeCompanyCheckList(response.data);
+
+      setAlgoSymbols(
+        response.data
+          .filter(company => company[2] === '1')
+          .map(company => company[0]),
+      );
+    }
+  };
 
   return (
     <Wrapper>
