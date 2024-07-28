@@ -78,6 +78,14 @@ export default function EachEquityPerformance() {
         <Graphs>
           {LineGraph({
             xData: data.date,
+            yData: data.o,
+            colorScale: 'Electric',
+            title: 'Stock Price Transition',
+            xLabel: 'Dates',
+            yLabel: 'Stock Price ($)',
+          })}
+          {LineGraph({
+            xData: data.date,
             yData: data.accuQty,
             colorScale: 'Electric',
             title: 'Holding Quantity Transition',

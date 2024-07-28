@@ -40,4 +40,19 @@ const getCompanyList = async () => {
   return response;
 };
 
-export { download_all_list, getCompanyList };
+const putCompanyList = async (index, symbol, value) => {
+  const response = await axios({
+    method: 'put',
+    baseURL: '/api',
+    url: '/company_list',
+    data: {
+      index,
+      symbol,
+      value
+    },
+  });
+
+  return response;
+};
+
+export { download_all_list, getCompanyList, putCompanyList };

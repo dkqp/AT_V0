@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
   LiaToggleOnSolid as OnIcon,
@@ -13,12 +13,13 @@ import {
   backend_server_alarming,
   data_server_alarming,
 } from '@/services/alarmapi';
-import { periodicSignal } from '@/recoilstore/atoms';
+
+import { algoSymbols, periodicSignal } from '@/recoilstore/atoms';
 
 export default function Header() {
   const [algoOn, setAlgoOn] = useRecoilState(periodicSignal);
 
-  const [symbols, setSymbols] = useState([]);
+  const symbols = useRecoilValue(algoSymbols);
   const router = useRouter();
 
   const algoSwitch = e => {
@@ -29,12 +30,6 @@ export default function Header() {
   useEffect(() => {
     (async () => {
       const response = await getCompanyList();
-
-      setSymbols(
-        response.data
-          .filter(company => company[2] === '1')
-          .map(company => company[0]),
-      );
     })();
   }, []);
 
